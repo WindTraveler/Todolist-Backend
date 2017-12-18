@@ -174,70 +174,70 @@ class NoteAPI(MethodView):
             response.headers["Content-Type"] = "application/json; charset=utf-8"
             return response
 
+
     def delete(self):
 
         if session.get('userid') is not None:
             masterid = session.get('userid')
 
             # 获取前端发送的note内容
-            listid = request.data
-
+            listid = request.json["idList"]
             if listid is not None:
-                # notes = []
+                notes = []
                 for id in listid:
-                    return id
+                    print(id)
+                    # 修改note的deleted值
+                    sql_update = 'UPDATE notes SET deleted = True  WHERE note_id = %s;'
+                    parm_update = (id,)
+                    Note().set_Note(sql_update, parm_update)
+                    # 获用更改后的note
+                    sql = 'SELECT * FROM notes WHERE note_id = %s;'
+                    parm = (id,)
+                    rows = Note().get_AllNote(sql, parm)
 
-        #             # 修改note的deleted值
-        #             sql_update = 'UPDATE notes SET deleted = True  WHERE note_id = %s;'
-        #             parm_update = (id,)
-        #             Note().set_Note(sql_update, parm_update)
-        #
-        #             # 获用更改后的note
-        #             sql = 'SELECT * FROM notes WHERE note_id = %s;'
-        #             parm = (id,)
-        #             row = Note().get_Note(sql, parm)
-        #
-        #             # 读取元组数据，转换为json类型
-        #             note = {}
-        #             note['id'] = row[0]
-        #             note['content'] = row[1]
-        #             note['completed'] = row[2]
-        #             note['deleted'] = row[3]
-        #             notes.append(note)
-        #
-        #         # 返回新添加的note信息
-        #         info = {
-        #             "success": True,
-        #             "errorMsg": None,
-        #             "data": notes
-        #         }
-        #
-        #         result = json.dumps(info, ensure_ascii=False)
-        #         response = make_response(result)
-        #         response.headers["Content-Type"] = "application/json; charset=utf-8"
-        #         return response
-        #
-        #     else:
-        #         # 返回错误信息
-        #         info = {
-        #             "success": False,
-        #             "errorMsg": "can not find a note",
-        #             "data": None
-        #         }
-        #         result = json.dumps(info, ensure_ascii=False)
-        #         response = make_response(result)
-        #         response.headers["Content-Type"] = "application/json; charset=utf-8"
-        #         return response
-        #
-        # else:
-        #     # 未登录，返回错误信息
-        #     info = {
-        #         "success": False,
-        #         "errorMsg": "Please log in first!",
-        #         "data": None
-        #     }
-        #     result = json.dumps(info, ensure_ascii=False)
-        #     response = make_response(result)
-        #     response.headers["Content-Type"] = "application/json; charset=utf-8"
-        #     return response
+                    if rows is not None:
+                        # 读取元组数据，转换为json类型
+                        for row in rows:
+                            note = {}
+                            note['id'] = row[0]
+                            note['content'] = row[1]
+                            note['completed'] = row[2]
+                            note['deleted'] = row[3]
+                            notes.append(note)
+
+                # 返回新添加的note信息
+                info = {
+                    "success": True,
+                    "errorMsg": None,
+                    "data": notes
+                }
+
+                result = json.dumps(info, ensure_ascii=False)
+                response = make_response(result)
+                response.headers["Content-Type"] = "application/json; charset=utf-8"
+                return response
+
+            else:
+                # 返回错误信息
+                info = {
+                    "success": False,
+                    "errorMsg": "can not find a note",
+                    "data": None
+                }
+                result = json.dumps(info, ensure_ascii=False)
+                response = make_response(result)
+                response.headers["Content-Type"] = "application/json; charset=utf-8"
+                return response
+
+        else:
+            # 未登录，返回错误信息
+            info = {
+                "success": False,
+                "errorMsg": "Please log in first!",
+                "data": None
+            }
+            result = json.dumps(info, ensure_ascii=False)
+            response = make_response(result)
+            response.headers["Content-Type"] = "application/json; charset=utf-8"
+            return response
 

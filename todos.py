@@ -25,4 +25,4 @@ app.add_url_rule('/api/todos/', view_func=note_view, methods=['GET','POST','PUT'
 #haha
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
