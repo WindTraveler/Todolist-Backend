@@ -7,13 +7,13 @@ app = Flask(__name__)
 app.secret_key = '123'
 
 
-app.add_url_rule('/logout','logout',logout)
+app.add_url_rule('/api/logout/','logout',logout)
 
 #login/register
 user_view = UserAPI.as_view('user_api')
-app.add_url_rule('/login/api/users/', view_func=user_view, methods=['POST'])
+app.add_url_rule('/api/login/', view_func=user_view, methods=['POST'])
 rgs_view = RegisterAPI.as_view('rgs_api')
-app.add_url_rule('/register/api/users/', view_func=rgs_view, methods=['POST'])
+app.add_url_rule('/api/register/', view_func=rgs_view, methods=['POST'])
 
 #todos
 note_view = NoteAPI.as_view('note_api')

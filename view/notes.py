@@ -185,7 +185,6 @@ class NoteAPI(MethodView):
             if listid is not None:
                 notes = []
                 for id in listid:
-                    print(id)
                     # 修改note的deleted值
                     sql_update = 'UPDATE notes SET deleted = True  WHERE note_id = %s;'
                     parm_update = (id,)
