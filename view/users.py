@@ -8,19 +8,21 @@ import json
 
 salt_value = 'Ecm6'
 
+#logout
+class LogoutAPI(MethodView):
 
-def logout():
+    def get(self):
 
-    session.pop('userid', None)
-    info = {
-        "success": True,
-        "errorMsg": False,
-        "data": None
-    }
-    result = json.dumps(info, ensure_ascii=False)
-    response = make_response(result)
-    response.headers["Content-Type"] = "application/json; charset=utf-8"
-    return response
+        session.pop('userid', None)
+        info = {
+            "success": True,
+            "errorMsg": False,
+            "data": None
+        }
+        result = json.dumps(info, ensure_ascii=False)
+        response = make_response(result)
+        response.headers["Content-Type"] = "application/json; charset=utf-8"
+        return response
 
 
 def create_md5(pwd,salt):
@@ -30,8 +32,9 @@ def create_md5(pwd,salt):
     md5_obj.update(value.encode("utf8"))
     return md5_obj.hexdigest()
 
+
 #登录
-class UserAPI(MethodView):
+class LoginAPI(MethodView):
 
     def post(self):
 
