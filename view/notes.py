@@ -65,11 +65,16 @@ class NoteAPI(MethodView):
             parm_add = (content, masterid)
             Note().set_Note(sql_add, parm_add)
 
-            # 获用户添加的note数据
-            sql = 'SELECT * FROM notes WHERE user_id = %s AND deleted = False ORDER BY note_id DESC;'
+            # 获用户添加的note的id
+            sql = 'SELECT * FROM notes WHERE user_id = %s ORDER BY note_id DESC;'
             parm = (masterid,)
+            newnote = Note().get_Note(sql, parm)
+
+            # 获用户添加的note数据
+            sql = 'SELECT * FROM notes WHERE note_id = %s;'
+            parm = (newnote[0],)
             rows = Note().get_AllNote(sql, parm)
-            print(rows)
+
             # 读取元组数据，转换为json类型
             notes = []
             for row in rows:
