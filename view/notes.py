@@ -13,7 +13,7 @@ class NoteAPI(MethodView):
             masterid = session.get('userid')
 
             # 获用户所有note数据
-            sql = 'SELECT * FROM notes WHERE user_id = %s ORDER BY note_id DESC;'
+            sql = 'SELECT * FROM notes WHERE user_id = %s AND deleted = False ORDER BY note_id DESC;'
             parm = (masterid,)
             rows = Note().get_AllNote(sql, parm)
             # 读取元组数据，转换为json类型
@@ -188,20 +188,21 @@ class NoteAPI(MethodView):
                     sql_update = 'UPDATE notes SET deleted = True  WHERE note_id = %s;'
                     parm_update = (id,)
                     Note().set_Note(sql_update, parm_update)
-                    # 获用更改后的note
-                    sql = 'SELECT * FROM notes WHERE note_id = %s;'
-                    parm = (id,)
-                    rows = Note().get_AllNote(sql, parm)
 
-                    if rows is not None:
-                        # 读取元组数据，转换为json类型
-                        for row in rows:
-                            note = {}
-                            note['id'] = row[0]
-                            note['content'] = row[1]
-                            note['completed'] = row[2]
-                            note['deleted'] = row[3]
-                            notes.append(note)
+                # 获用更改后的note
+                sql = 'SELECT * FROM notes WHERE user_id = %s AND deleted = False ORDER BY note_id DESC;'
+                parm = (masterid,)
+                rows = Note().get_AllNote(sql, parm)
+
+                if rows is not None:
+                    # 读取元组数据，转换为json类型
+                    for row in rows:
+                        note = {}
+                        note['id'] = row[0]
+                        note['content'] = row[1]
+                        note['completed'] = row[2]
+                        note['deleted'] = row[3]
+                        notes.append(note)
 
                 # 返回删除的note信息
                 info = {
