@@ -50,7 +50,7 @@ class LoginAPI(MethodView):
         if rows is None:
             info = {
                 "success": False,
-                "errorMsg": "user is not exist!",
+                "errorMsg": "The user doesn't exist.",
                 "data": None
             }
             result = json.dumps(info, ensure_ascii=False)
@@ -63,7 +63,7 @@ class LoginAPI(MethodView):
         if username == rows[1] and md5 != rows[2]:
             info = {
                 "success": False,
-                "errorMsg": "password is wrong!",
+                "errorMsg": "Password is wrong.",
                 "data": None
             }
             result = json.dumps(info, ensure_ascii=False)
@@ -105,7 +105,7 @@ class RegisterAPI(MethodView):
         if rows is not None:
             info = {
                 "success": False,
-                "errorMsg": "user is already exist!",
+                "errorMsg": "The email has been registered.",
                 "data": None
             }
 
