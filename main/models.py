@@ -1,7 +1,7 @@
 import psycopg2
 
 def connect_db():
-    conn = psycopg2.connect(database="notedb", user="postgres", password="123456", host="localhost", port="5432")
+    conn = psycopg2.connect(database="notedb", user="postgres", password="postgres", host="localhost", port="5432")
     return conn
 
 class User():

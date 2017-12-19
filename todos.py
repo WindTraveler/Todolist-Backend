@@ -4,7 +4,7 @@ from view.notes import *
 
 
 app = Flask(__name__)
-app.secret_key = '123'
+app.secret_key = '\x19g\x90\x97\xba\xfb\xdd\xfb\x05-y\x8d\xedk\xd0\xb0\x01\x8e\xad\xe3\xcd?\xf8\xff'
 
 #logout
 logout_view = LogoutAPI.as_view('logout_api')
