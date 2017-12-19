@@ -18,7 +18,12 @@ app.add_url_rule('/api/register/', view_func=rgs_view, methods=['POST'])
 
 #todos
 note_view = NoteAPI.as_view('note_api')
-app.add_url_rule('/api/todos/', view_func=note_view, methods=['GET','POST','PUT','DELETE'])
+app.add_url_rule('/api/todos/', view_func=note_view, methods=['GET','POST','PUT'])
+
+#delete todos
+delete_view = DeleteAPI.as_view('delete_api')
+app.add_url_rule('/api/delete/', view_func=delete_view, methods=['PUT'])
+
 #all todos completed
 allcompeleted_view = AllCompleteAPI.as_view('allcompeleted_api')
 app.add_url_rule('/api/compeleted/', view_func=allcompeleted_view, methods=['PUT'])

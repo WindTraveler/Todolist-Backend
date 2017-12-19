@@ -179,7 +179,9 @@ class NoteAPI(MethodView):
             return response
 
 
-    def delete(self):
+class DeleteAPI(MethodView):
+
+    def put(self):
 
         if session.get('userid') is not None:
             masterid = session.get('userid')
@@ -190,11 +192,11 @@ class NoteAPI(MethodView):
                 notes = []
                 for id in listid:
                     # 修改note的deleted值
-                    sql_update = 'UPDATE notes SET deleted = True  WHERE note_id = %s;'
+                    sql_update = 'UPDATE notes SET deleted = True WHERE note_id = %s;'
                     parm_update = (id,)
                     Note().set_Note(sql_update, parm_update)
 
-                # 获用更改后的note
+                # 获取所有未删除的note
                 sql = 'SELECT * FROM notes WHERE user_id = %s AND deleted = False ORDER BY note_id DESC;'
                 parm = (masterid,)
                 rows = Note().get_AllNote(sql, parm)
@@ -209,7 +211,7 @@ class NoteAPI(MethodView):
                         note['deleted'] = row[3]
                         notes.append(note)
 
-                # 返回删除的note信息
+                # 返回note信息
                 info = {
                     "success": True,
                     "errorMsg": None,
@@ -255,7 +257,7 @@ class AllCompleteAPI(MethodView):
             #获取数据类型，确定全部完成或全部未完成
             type = request.json["type"]
 
-            #设置为：全部已完成
+            #全部设置为：已完成
             if type == "1" :
                 # 修改note信息
                 sql_update = 'UPDATE notes SET completed = True WHERE user_id = %s AND deleted = False;'
