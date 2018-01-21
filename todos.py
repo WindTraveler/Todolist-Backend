@@ -12,7 +12,7 @@ app.add_url_rule('/api/logout/', view_func=logout_view, methods=['GET'])
 
 #login/register
 login_view = LoginAPI.as_view('login_api')
-app.add_url_rule('/api/login/', view_func=login_view, methods=['POST'])
+app.add_url_rule('/api/login/', view_func=login_view, methods=['POST', 'OPTION'])
 rgs_view = RegisterAPI.as_view('rgs_api')
 app.add_url_rule('/api/register/', view_func=rgs_view, methods=['POST'])
 

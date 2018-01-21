@@ -85,6 +85,12 @@ class LoginAPI(MethodView):
             response.headers["Content-Type"] = "application/json; charset=utf-8"
             return response
 
+    def option(self):
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET POST PUT"
+        return response
+
 
 #注册
 class RegisterAPI(MethodView):
