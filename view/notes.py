@@ -35,6 +35,7 @@ class NoteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
 
         else:
@@ -48,6 +49,7 @@ class NoteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
 
 
@@ -95,6 +97,7 @@ class NoteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
 
         else:
@@ -107,6 +110,7 @@ class NoteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
 
 
@@ -153,6 +157,7 @@ class NoteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
             else:
                 # 返回错误信息
@@ -164,6 +169,7 @@ class NoteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
         else:
@@ -176,7 +182,15 @@ class NoteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
+
+    def options(self):
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, X-ID, X-TOKEN, X-ANY-YOUR-CUSTOM-HEADER"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT"
+        return response
 
 
 class DeleteAPI(MethodView):
@@ -221,6 +235,7 @@ class DeleteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
             else:
@@ -233,6 +248,7 @@ class DeleteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
         else:
@@ -246,6 +262,13 @@ class DeleteAPI(MethodView):
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
             return response
+
+    def options(self):
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, X-ID, X-TOKEN, X-ANY-YOUR-CUSTOM-HEADER"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT"
+        return response
 
 
 class AllCompleteAPI(MethodView):
@@ -289,6 +312,7 @@ class AllCompleteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
             #全部设置为：未完成
@@ -323,6 +347,7 @@ class AllCompleteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
             else :
@@ -336,6 +361,7 @@ class AllCompleteAPI(MethodView):
                 result = json.dumps(info, ensure_ascii=False)
                 response = make_response(result)
                 response.headers["Content-Type"] = "application/json; charset=utf-8"
+                response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
 
         else:
@@ -348,4 +374,12 @@ class AllCompleteAPI(MethodView):
             result = json.dumps(info, ensure_ascii=False)
             response = make_response(result)
             response.headers["Content-Type"] = "application/json; charset=utf-8"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response
+
+    def options(self):
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, X-ID, X-TOKEN, X-ANY-YOUR-CUSTOM-HEADER"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT"
+        return response

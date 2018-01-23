@@ -22,6 +22,7 @@ class LogoutAPI(MethodView):
         result = json.dumps(info, ensure_ascii=False)
         response = make_response(result)
         response.headers["Content-Type"] = "application/json; charset=utf-8"
+        response.headers["Access-Control-Allow-Origin"] = "*"
         return response
 
 
@@ -132,4 +133,12 @@ class RegisterAPI(MethodView):
         result = json.dumps(info, ensure_ascii=False)
         response = make_response(result)
         response.headers["Content-Type"] = "application/json; charset=utf-8"
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+    def options(self):
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, X-ID, X-TOKEN, X-ANY-YOUR-CUSTOM-HEADER"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT"
         return response
