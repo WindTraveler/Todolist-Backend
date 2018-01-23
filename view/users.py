@@ -86,7 +86,7 @@ class LoginAPI(MethodView):
             response.headers["Content-Type"] = "application/json; charset=utf-8"
             response.headers["Access-Control-Allow-Origin"] = "*"
 
-            response.set_cookie("userid", rows[0])
+            response.set_cookie("userid", "nihao")
             return response
 
     def options(self):
