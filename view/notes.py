@@ -55,6 +55,7 @@ class NoteAPI(MethodView):
 
     def post(self):
 
+        print(request.cookies.get("userid"))
         if session.get('userid') is not None:
             masterid = session.get('userid')
 
